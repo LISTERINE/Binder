@@ -2,8 +2,8 @@ from QuickKeylogger import keylogger
 
 class KeyBinder(keylogger.KeyLogger):
 
-    def __init__(self, func_dict={}):
-        self.func_dict = func_dict
+    def __init__(self, *args, **kwargs):
+        self.func_dict = kwargs
 
     def respond(self, key):
         """ Responds to presses
@@ -50,7 +50,6 @@ if __name__ == "__main__":
         xerox.copy(new_text)
 
     bindings = {"ctrl+shift+F3" : transpose_csv,
-                "ctrl+alt+a" : stop,
                 "ctrl+shift+F1" : stop}
     kb.register_bindings(bindings)
     kb.start_capture()
