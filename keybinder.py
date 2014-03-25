@@ -11,6 +11,7 @@ class KeyBinder(keylogger.KeyLogger):
         Takes only one argument that contains key press data.
         """
         func = self.func_dict.get(key, None)
+        print key
         if func:
             func()
 
@@ -29,7 +30,7 @@ class KeyBinder(keylogger.KeyLogger):
 if __name__ == "__main__":
     import xerox
 
-    kb = KeyBinder()
+    kb = KeyBinder(logging=False)
 
     def stop():
         """ Ends key capturing
@@ -49,6 +50,7 @@ if __name__ == "__main__":
         xerox.copy(new_text)
 
     bindings = {"ctrl+shift+F3" : transpose_csv,
+                "ctrl+alt+a" : stop,
                 "ctrl+shift+F1" : stop}
     kb.register_bindings(bindings)
     kb.start_capture()
