@@ -1,60 +1,51 @@
-"""
 from Tkinter import *
 
-# create window
-root = Tk()
+class FunctionWindow():
+    def __init__(self):
+        self.root = Tk()
+        self.ctrl_key = StringVar()
+        self.ctrl_key.set(0)
+        self.shift_key = StringVar()
+        self.shift_key.set(0)
 
-# modify window
-root.title("Add Binding")
-root.geometry("1000x1000")
+        # function input
+        self.func_label = Label(self.root, text="Function Name:")
+        self.func_label.grid(sticky=E)
+        self.func_input = Entry(self.root)
+        self.func_input.grid(row=0, column=1, sticky=W)
 
-# make text string
+        # code input
+        self.code_label = Label(self.root, text="Code:")
+        self.code_label.grid(sticky=E)
+        self.code_input = Text(self.root)
+        self.code_input.insert(INSERT, "")
+        self.code_input.grid(row=1, column=1)
 
-label = Label(root, text="Message")
-label.grid(row=1)
+        # binding options
+        ctrl = Checkbutton(self.root, text="ctrl", variable=self.ctrl_key,
+                        onvalue="ctrl")
+        ctrl.grid(row=4)
+        shift = Checkbutton(self.root, text="shift", variable=self.shift_key,
+                            onvalue="shift")
+        shift.grid(row=5)
+        self.bind_label = Label(self.root, text="Bind to key:")
+        self.bind_label.grid(sticky=E)
+        self.bind_input = Entry(self.root, width=1)
+        self.bind_input.grid(row=6, column=1, sticky=W)
 
-# make text entry box
-name_box = Entry(root)
-name_box.grid(row=1)
+        b = Button(self.root, text="get", width=10, command=self.callback)
+        b.grid(row=2, column=1)
 
-code_box = Entry(root)
-code_box.pack()
-code_box.focus_set()
+    def callback(self):
+        print self.func_input.get()
+        print self.code_input.get(1.0, END).rstrip("\n")
+        if self.ctrl_key.get() != "0": print self.ctrl_key.get()
+        if self.shift_key.get() != "0": print self.shift_key.get()
+        print self.bind_input.get()
 
-def callback():
-    print name_box.get()
-    print code_box.get()
+    def popup(self):
+        mainloop()
 
-b = Button(root, text="get", width=10, command=callback)
-b.pack()
-
-# run the event loop
-root.mainloop()
-"""
-
-# Example: File: grid-example-1.py
-
-from Tkinter import *
-
-root = Tk()
-
-w = Label(root, text="Message")
-w.grid(sticky=E)
-w = Label(root, text="Subtractive:")
-w.grid(sticky=E)
-
-w = Label(root, text="Cyan", bg="cyan", height=2)
-w.grid(row=1, column=1)
-w = Label(root, text="Magenta", bg="magenta", fg="white")
-w.grid(row=1, column=2)
-w = Label(root, text="Yellow", bg="yellow", height=2)
-w.grid(row=1, column=3)
-
-w = Label(root, text="Red", bg="red", fg="white", height=2)
-w.grid(row=0, column=1)
-w = Label(root, text="Green", bg="green", height=3)
-w.grid(row=0, column=2)
-w = Label(root, text="Blue", bg="blue", fg="white")
-w.grid(row=0, column=3)
-
-mainloop()
+if __name__ == "__main__":
+    fw = FunctionWindow()
+    fw.popup()

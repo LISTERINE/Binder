@@ -1,4 +1,5 @@
 from QuickKeylogger import keylogger
+from GUI import FunctionWindow
 
 class KeyBinder(keylogger.KeyLogger):
 
@@ -31,6 +32,7 @@ if __name__ == "__main__":
     import xerox
 
     kb = KeyBinder(logging=False)
+    fw = FunctionWindow()
 
     def stop():
         """ Ends key capturing
@@ -50,6 +52,7 @@ if __name__ == "__main__":
         xerox.copy(new_text)
 
     bindings = {"ctrl+shift+F3" : transpose_csv,
-                "ctrl+shift+F1" : stop}
+                "ctrl+shift+F1" : fw.popup,
+                "ctrl+shift+F12" : stop}
     kb.register_bindings(bindings)
     kb.start_capture()
