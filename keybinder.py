@@ -31,8 +31,11 @@ class KeyBinder(keylogger.KeyLogger):
 if __name__ == "__main__":
     import xerox
 
+
+
     kb = KeyBinder(logging=False)
-    fw = FunctionWindow()
+
+    fw = FunctionWindow(kb.register_bindings)
 
     def stop():
         """ Ends key capturing
@@ -51,8 +54,8 @@ if __name__ == "__main__":
         new_text = "\n".join([",".join(y) for y in transposed])
         xerox.copy(new_text)
 
-    bindings = {"ctrl+shift+F3" : transpose_csv,
-                "ctrl+shift+F1" : fw.popup,
-                "ctrl+shift+F12" : stop}
+    bindings = {"ctrl+shift+F3": transpose_csv,
+                "ctrl+shift+F1": fw.build_window,
+                "ctrl+shift+F12": stop}
     kb.register_bindings(bindings)
     kb.start_capture()
